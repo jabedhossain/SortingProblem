@@ -1,3 +1,12 @@
+/*
+    PROBLEM STATEMENT:
+
+                            Consider an algorithm that sorts an array of n elements by finding the smallest and largest elements
+                            and then exchanges those elements with the elements in the first and last positions in the array.
+                            Then the size of the array is reduced by two elements after excluding the two elements that are already
+                            in the proper positions, and the process is repeated on the remaining part of the array until the entire array is sorted.
+*/
+
 #include<iostream>
 #include<array>
 #include<vector>
