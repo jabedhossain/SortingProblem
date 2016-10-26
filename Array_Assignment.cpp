@@ -47,7 +47,7 @@ int f_SmallesIndexValue(int arg[],int length)
              var_SmallestValue = arg[k];
     }
 
-    cout << '\n'<<"The smallest value is: " << var_SmallestValue <<endl;
+    cout <<"The smallest value is: " << var_SmallestValue <<endl;
     for(int l=0; l<=length; ++l)
     {
       if(arg[l] == var_SmallestValue)
@@ -61,14 +61,19 @@ int f_SmallesIndexValue(int arg[],int length)
 
 int f_LargestIndexValue(int arg[],int length)
 {
-    int var_LargestValue;
+    int var_LargestValue =0;
     arg[length] = 0;
     for(int k=0; k<length ; k++)
     {
         if(arg[k+1]> arg[k] && arg[k+1]>var_LargestValue)
         {
-            var_LargestValue = arg[k+1];
+            if (arg[k+1]== arg[length])
+                var_LargestValue = var_LargestValue;
+            else
+                var_LargestValue = arg[k+1];
         }
+        else if(arg[k+1]<arg[k] && arg[k]>var_LargestValue)
+            var_LargestValue = arg[k];
     }
 
   cout << "The largest value is: " << var_LargestValue <<endl;
@@ -80,12 +85,7 @@ int f_LargestIndexValue(int arg[],int length)
         arg[length-1] = var_LargestValue;
       }
   }
- cout << "After finding largest value: ";
-    for(int m = 0; m<length; m++)
-    {
-        cout << arg[m] << '\0';
-    }
-
+ return arg[length];
 
 }
 
@@ -114,27 +114,31 @@ int main()
     {
         cout << ar_Input[j] << '\0';
     }
+    //f_LargestIndexValue(ar_Input, var_N);
 
-    for(int var_loopcount = 1; var_loopcount<=var_N - 1; ++var_loopcount)
+    for(int var_loopcount = 1, var_CutOff = 0; var_loopcount<=var_N - 1; ++var_loopcount, var_CutOff =var_CutOff+2)
     {
             int var_loopcount1 = 1;
             if(var_loopcount>1)
             {
-                cout<< "The length of the array is " << var_N-(var_loopcount-1) <<endl;
-                f_SmallesIndexValue(ar_Sorted, var_N-(var_loopcount-1)); //Calling to get the smallest value
+
+                cout<< " *** The length of the array is " << var_N - var_CutOff << endl;
+                //f_SmallesIndexValue(ar_Sorted, var_N-(var_loopcount-1)); //Calling to get the smallest value
+                f_LargestIndexValue(ar_Sorted,var_loopcount);
             }
 
             else
             {
-                cout<< "The length of the array is " << var_N <<endl;
+                cout<< " *** The length of the array is: " << var_N <<endl;
                 f_SmallesIndexValue(ar_Input, var_N); //Calling to get the smallest value
+                f_LargestIndexValue(ar_Input,var_N);
             }
 
-            cout << "The new array after finding[" << var_loopcount << "]iteration of finding smallest index function : ";
+            cout << "The new array after finding[" << var_loopcount << "]iteration of finding smallest and largest index function : ";
             if(var_loopcount>1)
             {
 
-               for(int m = 0; m<var_N-(var_loopcount-1); m++)
+               for(int m = 0; m<var_N - var_loopcount; m++)
                 {
                     cout << ar_Sorted[m] << '\0';
                 }
@@ -151,24 +155,21 @@ int main()
             cout << '\n';
 
             //The new array to be sent to any outer function
+            if(ar_Sorted)
             if(var_loopcount<var_N-1)
             {
-                //int var_count = 1;
 
                     if(var_loopcount>1)
                     {
-                        //int var_CountSecArray=0;
                         for (int x=0; x<=var_N - (var_loopcount+1);++x)
                         {
                             ar_Sorted[x] = ar_Sorted[var_loopcount1];
                             var_loopcount1++;
-                            //var_CountSecArray++; //array counter working here
                         }
-                       // var_count = var_count +1;
                     }
                     else
                     {
-                        for (int x=0; x<var_N - var_loopcount;++x)
+                        for (int x=0; x<var_N - (var_loopcount+1);++x)
                         {
                             ar_Sorted[x] = ar_Input[var_loopcount1];
                             var_loopcount1++;
@@ -176,7 +177,7 @@ int main()
                     }
                 cout<<'\n';
                 cout<<"The new array to sort: ";
-                for(int y =0; y<=var_N - (var_loopcount+1); ++y)
+                for(int y =0; y<var_N - (var_loopcount+1); ++y)
                 {
                     cout<<ar_Sorted[y] << '\0';
                 }
