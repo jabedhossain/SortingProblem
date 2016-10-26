@@ -16,47 +16,47 @@ int ar_Sorted[] ={};
 int f_SmallesIndexValue(int arg[],int length)
 {
     int var_SmallestValue;
-    for(int k=0; k<length  ; k++)
+    for(int k=0; k<length-1; k++)
     {
+
         if(arg[k+1]!= arg[length] && arg[k+1]<arg[k])
         {
-            if(var_SmallestValue>arg[k+1] && var_SmallestValue == 0)
+            if(var_SmallestValue == 0 || var_SmallestValue>arg[k+1])
              var_SmallestValue = arg[k+1];
             else
                 var_SmallestValue = var_SmallestValue;
         }
-        else
+        else if(arg[k]!= arg[length] && arg[k+1]<arg[k])
         {
-            if(arg[k]!= arg[length] && var_SmallestValue !=0)
-            {
-                if (var_SmallestValue>arg[k])
-                    var_SmallestValue = arg[k];
-                else if(k == 0)
-                    var_SmallestValue = arg[k];
-                else
-                    var_SmallestValue = var_SmallestValue;
-            }
+            if(var_SmallestValue>arg[k+1] || var_SmallestValue == 0)
+                var_SmallestValue = arg[k+1];
             else
-                var_SmallestValue = arg[k];
+                var_SmallestValue =- var_SmallestValue;
         }
+
+        else if(arg[k]!= arg[length] && var_SmallestValue !=0)
+        {
+            if ( k == 0 || var_SmallestValue>arg[k])
+                var_SmallestValue = arg[k];
+            else if(arg[k+1]<var_SmallestValue)
+                var_SmallestValue = arg[k+1];
+            else
+                var_SmallestValue = var_SmallestValue;
+        }
+        else
+             var_SmallestValue = arg[k];
     }
 
-  cout << '\n'<<"The smallest value is: " << var_SmallestValue <<endl;
-  for(int l=0; l<length; ++l)
-  {
+    cout << '\n'<<"The smallest value is: " << var_SmallestValue <<endl;
+    for(int l=0; l<=length; ++l)
+    {
       if(arg[l] == var_SmallestValue)
       {
         arg[l]=arg[0];
         arg[0] = var_SmallestValue;
       }
-  }
- /*cout << "After finding small value: ";
-    for(int m = 0; m<length; m++)
-    {
-        cout << arg[m] << '\0';
     }
-cout << '\n';*/
-return arg[length];
+    return arg[length];
 }
 
 int f_LargestIndexValue(int arg[],int length)
@@ -119,14 +119,22 @@ int main()
     {
             int var_loopcount1 = 1;
             if(var_loopcount>1)
-             f_SmallesIndexValue(ar_Sorted, var_N-(var_loopcount-1)); //Calling to get the smallest value
+            {
+                cout<< "The length of the array is " << var_N-(var_loopcount-1) <<endl;
+                f_SmallesIndexValue(ar_Sorted, var_N-(var_loopcount-1)); //Calling to get the smallest value
+            }
+
             else
-             f_SmallesIndexValue(ar_Input, var_N); //Calling to get the smallest value
+            {
+                cout<< "The length of the array is " << var_N <<endl;
+                f_SmallesIndexValue(ar_Input, var_N); //Calling to get the smallest value
+            }
+
             cout << "The new array after finding[" << var_loopcount << "]iteration of finding smallest index function : ";
             if(var_loopcount>1)
             {
 
-               for(int m = 0; m<var_N-1; m++)
+               for(int m = 0; m<var_N-(var_loopcount-1); m++)
                 {
                     cout << ar_Sorted[m] << '\0';
                 }
