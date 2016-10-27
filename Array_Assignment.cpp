@@ -123,8 +123,8 @@ int main()
             {
 
                 cout<< " *** The length of the array is " << var_N - var_CutOff << endl;
-                //f_SmallesIndexValue(ar_Sorted, var_N-(var_loopcount-1)); //Calling to get the smallest value
-                f_LargestIndexValue(ar_Sorted,var_loopcount);
+                f_SmallesIndexValue(ar_Sorted, var_N-var_loopcount); //Calling to get the smallest value
+                f_LargestIndexValue(ar_Sorted,var_N-var_loopcount);
             }
 
             else
@@ -155,7 +155,6 @@ int main()
             cout << '\n';
 
             //The new array to be sent to any outer function
-            if(ar_Sorted)
             if(var_loopcount<var_N-1)
             {
 
