@@ -121,7 +121,7 @@ int main()
             int var_loopcount1 = 1;
             if(var_loopcount>1)
             {
-
+                cout<<'\n';
                 cout<< " *** The length of the array is " << var_N - var_CutOff << endl;
                 f_SmallesIndexValue(ar_Sorted, var_N-var_loopcount); //Calling to get the smallest value
                 f_LargestIndexValue(ar_Sorted,var_N-var_loopcount);
@@ -160,10 +160,15 @@ int main()
 
                     if(var_loopcount>1)
                     {
-                        for (int x=0; x<=var_N - (var_loopcount+1);++x)
+                        for (int x=0; x<var_N-(var_N - var_CutOff) ;++x)
                         {
                             ar_Sorted[x] = ar_Sorted[var_loopcount1];
                             var_loopcount1++;
+                        }
+                        cout<<"The new array to sort: ";
+                        for(int y =0; y<var_N-(var_N - var_CutOff); ++y)
+                        {
+                            cout<<ar_Sorted[y] << '\0';
                         }
                     }
                     else
@@ -173,20 +178,14 @@ int main()
                             ar_Sorted[x] = ar_Input[var_loopcount1];
                             var_loopcount1++;
                         }
+                        cout<<"The new array to sort: ";
+                        for(int y =0; y<var_N - (var_loopcount+1); ++y)
+                        {
+                            cout<<ar_Sorted[y] << '\0';
+                        }
                     }
                 cout<<'\n';
-                cout<<"The new array to sort: ";
-                for(int y =0; y<var_N - (var_loopcount+1); ++y)
-                {
-                    cout<<ar_Sorted[y] << '\0';
-                }
             }
-            else
-            {
-
-            }
-
-            //main_array[] = {1};
 
     }
     return 0;
