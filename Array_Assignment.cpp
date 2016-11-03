@@ -12,9 +12,6 @@
 #include<vector>
 using namespace std;
 int ar_Sorted[] ={};
-int ar_Final[] = {};
-int counter = 0;
-
 int f_SmallesIndexValue(int arg[],int length)
 {
     int var_SmallestValue;
@@ -94,6 +91,7 @@ int f_LargestIndexValue(int arg[],int length)
 int main()
 {
     int var_N,var_ArrayIndex;
+    int counter = 0;
     cout << "Please Enter The Numbers of Element(n):";
     cin >> var_N;
     while(var_N <= 1)
@@ -102,14 +100,14 @@ int main()
         cin >>var_N;
     }
 
-    int ar_Input[var_N];
-    int main_array[]{};
+    int ar_Input[var_N], ar_Final[var_N];
 
     for(int i = 0; i<var_N; ++i)
     {
         cout << "Fill Up the array indexes: " << "[" << i << "]";
         cin >> var_ArrayIndex;
         ar_Input[i] = var_ArrayIndex;
+        ar_Final[i] = -1;
     }
 
     cout << "The ORIGINAL ARRAY is:" ;
@@ -121,6 +119,7 @@ int main()
     for(int var_loopcount = 1, var_CutOff = 0; var_loopcount<=var_N - 1; ++var_loopcount, var_CutOff =var_CutOff+2)
     {
             int var_loopcount1 = 1;
+
             if(var_N - var_CutOff >= 2)
             {
                 if(var_loopcount>1)
@@ -128,36 +127,27 @@ int main()
                     cout<<'\n';
                     cout<< " *** The length of the array is " << var_N - var_CutOff << endl;
                     f_SmallesIndexValue(ar_Sorted, var_N-var_loopcount); //Calling to get the smallest value
-                    f_LargestIndexValue(ar_Sorted,var_N-var_loopcount);
-                    cout << "Value First" << ar_Sorted[0] << "Value Last" << ar_Sorted[var_N - var_CutOff-1] << endl;
+                    f_LargestIndexValue(ar_Sorted,var_N - var_CutOff );// Calling to get the largest value.
+                    if(counter<=var_N)
+                     {
+                         if(ar_Final[var_loopcount -1]==-1 && ar_Final[var_N-var_loopcount]==-1)
+                         {
+                            ar_Final[var_loopcount -1] = ar_Sorted[0];
+                            ar_Final[var_N-var_loopcount] = ar_Sorted[var_N - var_CutOff-1];
+                            counter = counter+2;
 
-                   /* if(counter <= var_N)
-                    {
-                        ar_Final[var_loopcount1 - 1] = ar_Sorted[0];
-                        ar_Final[var_N - var_loopcount1] = ar_Sorted[var_N - var_CutOff];
-                    }
-                    cout << "The Final Array is: " ;
-                    for(int d = 0 ; d<var_N; d++)
-                    {
-                        cout << ar_Final[d] << '\0';
-                    }
-                     cout << '\n';*/
+                         }
+                     }
                 }
 
                 else
                 {
                     cout<< " *** The length of the array is: " << var_N <<endl;
                     f_SmallesIndexValue(ar_Input, var_N); //Calling to get the smallest value
-                    ar_Final[0] = ar_Input[0];
+                    ar_Final[0] = ar_Input[0]; //The smallest value after the first iteration
                     f_LargestIndexValue(ar_Input,var_N);
-                    ar_Final[var_N-1] = ar_Input[var_N-1];
+                    ar_Final[var_N-1] = ar_Input[var_N-1]; //The largest value after the first iteration
                     counter = counter+2;
-                    cout << "The Final Array is: " ;
-                    for(int d = 0 ; d<var_N; d++)
-                    {
-                        cout << ar_Final[d] << '\0';
-                    }
-                     cout << '\n';
                 }
 
                 cout << "The new array after finding[" << var_loopcount << "]iteration of finding smallest and largest index function : ";
@@ -223,11 +213,12 @@ int main()
 
     }
 
-    /*cout << "The Final Array is: " ;
+    cout << "The Final Array is: " ;
     for(int d = 0 ; d<var_N; d++)
     {
         cout << ar_Final[d] << '\0';
-    }*/
+    }
+    cout << '\n';
     return 0;
 }
 
